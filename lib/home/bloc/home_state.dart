@@ -23,3 +23,13 @@ class HomeError extends HomeState {
 class Loading extends HomeState {
   const Loading();
 }
+
+
+class LoadedIntroState extends HomeState{
+  const LoadedIntroState(this.animation);
+
+  final double animation;
+
+  @override
+  List<Object> get props => [];
+}
