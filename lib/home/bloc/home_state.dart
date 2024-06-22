@@ -20,15 +20,21 @@ class HomeError extends HomeState {
   List<Object> get props => [message];
 }
 
-class Loading extends HomeState {
-  const Loading();
+class Next extends HomeState {
+  const Next();
 }
 
-
-class LoadedIntroState extends HomeState{
-  const LoadedIntroState(this.animation);
+class LoadedVideoState extends HomeState{
+  const LoadedVideoState(this.animation);
 
   final double animation;
+
+  @override
+  List<Object> get props => [];
+}
+
+class LoadedDescriptionVideoState extends HomeState{
+  const LoadedDescriptionVideoState();
 
   @override
   List<Object> get props => [];

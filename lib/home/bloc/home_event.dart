@@ -7,10 +7,8 @@ abstract class HomeEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class IntroEvent extends HomeEvent {
-  const IntroEvent(this.animation);
-
-  final double animation;
+class PlayVideoEvent extends HomeEvent {
+  const PlayVideoEvent();
 
   @override
   List<Object> get props => [];

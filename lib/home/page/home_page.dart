@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:video_challenge/home/bloc/home_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:video_challenge/home/page/description_widget.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({
@@ -13,7 +14,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     return RepositoryProvider<HomeBloc>(
-      create: (context) => HomeBloc()..add(const IntroEvent(0)),
+      create: (context) => HomeBloc()..add(const PlayVideoEvent()),
       child: const _Page(),
     );
   }
@@ -42,7 +43,7 @@ class _Body extends StatelessWidget {
     double height = MediaQuery.sizeOf(context).height;
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
-        if (state is LoadedIntroState) {
+        if (state is LoadedVideoState) {
           return Container(
             width: width,
             height: height,
@@ -63,62 +64,56 @@ class _Body extends StatelessWidget {
                   left: 0,
                   bottom: 0,
                   right: 0,
-                  child: Container(
-                    width: width,
+                  child: DescriptionWidget(
                     height: height,
-                    color: Colors.blue,
+                    width: width,
+                    animation: state.animation,
                   )
                 ),
                 Positioned(
                   top: 0,
                   left: 0,
-                  child: SizedBox(
-                    width: width*0.73,
-                    height: (width*0.77)*0.73,
-                    child: SvgPicture.asset(
-                      'assets/images/left.svg',
-                    ),
+                  child: TweenAnimationBuilder(
+                    tween: Tween<double>(begin: 0, end: state.animation),
+                    duration: const Duration(microseconds: 500000),
+                    curve: Curves.easeIn,
+                    builder: (_, double val, __) {
+                      return Transform(
+                        transform: Matrix4.identity()
+                          ..setEntry(0, 3, -width * val),
+                        child: SizedBox(
+                          width: width * 0.73,
+                          height: (width * 0.77) * 0.73,
+                          child: SvgPicture.asset(
+                            'assets/images/left.svg',
+                          ),
+                        ),
+                      );
+                    }
                   ),
                 ),
                 Positioned(
                   top: 0,
                   right: 0,
-                  child: SizedBox(
-                    width: width*0.73,
-                    height: (width*0.77)*0.73,
-                    child: SvgPicture.asset(
-                      'assets/images/right.svg',
-                    ),
+                  child: TweenAnimationBuilder(
+                    tween: Tween<double>(begin: 0, end: state.animation),
+                    duration: const Duration(microseconds: 500000),
+                    curve: Curves.easeIn,
+                    builder: (_, double val, __) {
+                      return Transform(
+                        transform: Matrix4.identity()
+                          ..setEntry(0, 3, width * val),
+                        child: SizedBox(
+                          width: width * 0.73,
+                          height: (width * 0.77) * 0.73,
+                          child: SvgPicture.asset(
+                            'assets/images/right.svg',
+                          ),
+                        ),
+                      );
+                    }
                   ),
                 ),
-
-                /*SizedBox(
-                  width: width,
-                  height: height,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      TweenAnimationBuilder(
-                          tween: Tween<double>(begin: 0, end: state.animation),
-                          duration: const Duration(microseconds: 500000),
-                          curve: Curves.easeIn,
-                          builder: (_, double val, __) {
-                            return Transform(
-                              transform: Matrix4.identity()
-                                ..setEntry(0, 3, width * val),
-                              child: const Text(
-                                'We challenged you',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 15),
-                              ),
-                            );
-                          }),
-                    ],
-                  ),
-                ),*/
               ],
             ),
           );

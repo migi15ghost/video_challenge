@@ -7,12 +7,14 @@ part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc() : super(const HomeInitial()) {
-    on<IntroEvent>(_loadIntroHandler);
+    on<PlayVideoEvent>(_loadIntroHandler);
   }
 
   Future<void> _loadIntroHandler(
-      IntroEvent event, Emitter<HomeState> emit) async {
-    emit(const Loading());    
-    emit(LoadedIntroState(event.animation));
+      PlayVideoEvent event, Emitter<HomeState> emit) async {
+    emit(const LoadedVideoState(0));
+    await Future.delayed(const Duration(seconds: 2));
+    emit(const Next());
+    emit(const LoadedVideoState(1));
   }
 }
