@@ -33,6 +33,16 @@ class LoadedVideoState extends HomeState{
   List<Object> get props => [];
 }
 
+class LoadedPhoneVideoState extends HomeState{
+  const LoadedPhoneVideoState(this.animation);
+
+  final double animation;
+
+  @override
+  List<Object> get props => [];
+}
+
+
 class LoadedDescriptionVideoState extends HomeState{
   const LoadedDescriptionVideoState();
 

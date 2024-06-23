@@ -43,6 +43,22 @@ class _Body extends StatelessWidget {
     double height = MediaQuery.sizeOf(context).height;
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
+
+
+        if(state is LoadedPhoneVideoState){
+          return Container(
+            width: width,
+            height: height,
+            color: const Color(0xFF2861A1),
+            child: const Stack(
+              children: [
+
+              ],
+            ),
+          );
+
+        }
+
         if (state is LoadedVideoState) {
           return Container(
             width: width,
@@ -84,8 +100,9 @@ class _Body extends StatelessWidget {
                         child: SizedBox(
                           width: width * 0.73,
                           height: (width * 0.77) * 0.73,
+                          //height: height,
                           child: SvgPicture.asset(
-                            'assets/images/left.svg',
+                            'assets/images/left1.svg',
                           ),
                         ),
                       );
@@ -106,8 +123,9 @@ class _Body extends StatelessWidget {
                         child: SizedBox(
                           width: width * 0.73,
                           height: (width * 0.77) * 0.73,
+                          //height: height,
                           child: SvgPicture.asset(
-                            'assets/images/right.svg',
+                            'assets/images/right1.svg',
                           ),
                         ),
                       );

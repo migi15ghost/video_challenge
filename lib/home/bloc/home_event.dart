@@ -13,3 +13,10 @@ class PlayVideoEvent extends HomeEvent {
   @override
   List<Object> get props => [];
 }
+
+class PhoneVideoEvent extends HomeEvent {
+  const PhoneVideoEvent();
+
+  @override
+  List<Object> get props => [];
+}

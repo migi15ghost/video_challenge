@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:video_challenge/home/bloc/home_bloc.dart';
 
 class TypeWritterText extends StatefulWidget {
   const TypeWritterText({super.key});
@@ -27,16 +29,20 @@ class _TypeWritterTextState extends State<TypeWritterText> {
 
     if(_currentCharIndex == _strings[_currentIndex].length){
       if(_currentIndex < 3){
-        await Future.delayed(const Duration(seconds: 5));
+        await Future.delayed(const Duration(seconds: 2));
         Future.delayed(const Duration(milliseconds: 50), () {
           _typeWrittingAnimation();
         });      
-      }    
+      }else{
+        context.read<HomeBloc>().add(const PhoneVideoEvent());
+      }
     }else{
       if(_currentIndex < 3){
         Future.delayed(const Duration(milliseconds: 50), () {
           _typeWrittingAnimation();
         });      
+      }else{
+        context.read<HomeBloc>().add(const PhoneVideoEvent());
       }
     }
 
